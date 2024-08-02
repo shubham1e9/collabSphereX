@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { db } from "@/config/firebaseConfig";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, documentId, setDoc } from "firebase/firestore";
 import { Loader2Icon, SmilePlus } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import uuid4 from "uuid4";
 
 function CreateWorkSpace() {
   const [coverImage, setCoverImage] = useState("/cover.png");
@@ -33,8 +34,26 @@ function CreateWorkSpace() {
       id: workspaceId,
       orgId: orgId ? orgId : user?.primaryEmailAddress?.emailAddress,
     });
+
+    const docId = uuid4();
+    await setDoc(doc(db, "workspaceDocument", docId.toString()), {
+      workspaceId,
+      workspaceId,
+      createdBy: user?.primaryEmailAddress?.emailAddress,
+      coverImage: null,
+      emoji: null,
+      id: docId,
+      documentName: 'Untitled Document',
+      documentOutput: [],
+    });
+    
+    await setDoc(doc(db, 'documentOutput', docId.toString()), {
+      docId: docId,
+      output: []
+    })
+
     setLoading(false);
-    router.replace("/workspace/" + workspaceId);
+    router.replace("/workspace/" + workspaceId + "/" + docId);
   };
 
   return (
