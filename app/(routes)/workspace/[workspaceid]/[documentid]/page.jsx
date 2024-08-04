@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import SideNav from "../../_components/SideNav";
 
 function WorkspaceDocument({params}) {
-  console.log(params)
   return (
     <div>
       {/* side bar */}

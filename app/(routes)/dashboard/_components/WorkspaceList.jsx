@@ -12,7 +12,7 @@ function WorkspaceList() {
   return (
     <div className="p-10 my-10 md:px-24 lg:px-36 xl:px-52">
       <div className="flex justify-between">
-        <h2 className="text-2xl font-bold">Hello {user?.fullName}</h2>
+        <h2 className="text-2xl font-bold">Hello, {user?.fullName}</h2>
         <Link href={"/createworkspace"}>
           <Button>+</Button>
         </Link>
