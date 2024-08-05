@@ -1,15 +1,17 @@
 import React from "react";
 import DocumentHeader from "./DocumentHeader";
 import DocumentInfo from "./DocumentInfo";
+import RichDocumentEditor from "./RichDocumentEditor";
 
-function DocumentEditorSection({params}) {
+function DocumentEditorSection({ params }) {
   return (
     <div>
       {/* Header */}
-        <DocumentHeader/>
+      <DocumentHeader />
       {/* Document info */}
-        <DocumentInfo params={params}/>
-    {/* Rich TExt Editor */}
+      <DocumentInfo params={params} />
+      {/* Rich TExt Editor */}
+      <RichDocumentEditor params={params} />
     </div>
   );
 }

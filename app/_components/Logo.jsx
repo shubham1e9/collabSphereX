@@ -1,12 +1,14 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 function Logo() {
   return (
-    <div className='flex gap-2 item-center'>
-        <Image src="/ppp.svg" alt="logo" width={35} height={35} />
+    <Link href={'/dashboard'} className='flex items-center gap-2'>
+        <Image src={'/ppp.svg'} alt='logo'
+        width={30} height={30} />
         <h2 className='text-xl font-bold'>CollabSphere</h2>
-    </div>
+    </Link>
   )
 }
 
