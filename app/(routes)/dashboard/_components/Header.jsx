@@ -18,7 +18,7 @@ function Header() {
   //Used to save user data...................................................
   
   const saveUserData = async() => {
-    const docId = Date.now().toString();
+    const docId = user?.primaryEmailAddress?.emailAddress
     try {
       await setDoc(doc(db, 'CSUsers', docId), {
         name:user?.fullName, 
