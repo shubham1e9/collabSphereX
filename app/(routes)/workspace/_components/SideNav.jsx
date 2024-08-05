@@ -20,6 +20,8 @@ import { Progress } from "@/components/ui/progress";
 import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner";
 
+const MAX_FILE = 5;
+
 function SideNav({ params }) {
   const [documentList, setDocumentList] = useState([]);
   const { user } = useUser();
@@ -49,11 +51,11 @@ function SideNav({ params }) {
 
   const CreateNewDocument = async () => {
 
-    if(documentList.length > 77) {
+    if(documentList?.length >= MAX_FILE) {
       toast("Upgrade to add new file", {
         description: "You reach max file, Please upgrade for unlimited files creation.",
         action: {
-          label: "Undo",
+          label: "Upgrade",
           onClick: () => console.log("Undo"),
         },
       })
@@ -102,7 +104,7 @@ function SideNav({ params }) {
       
        {/* Progress bar....................................................... */}
       <div className="absolute bottom-10 w-[85%]">
-      <Progress value={77} />
+      <Progress value={(documentList?.length/MAX_FILE)*100} />
       <h2 className="my-5 text-sm font-light"><strong>{documentList?.length}</strong> Out of <strong>5</strong> files used</h2>
       <h2 className="text-sm font-light">Upgrade your plane for unlimited access</h2>
       </div>
