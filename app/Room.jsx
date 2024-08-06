@@ -6,13 +6,13 @@ import {
   RoomProvider,
   ClientSideSuspense,
 } from "@liveblocks/react/suspense";
-import { collection, doc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 
 export function Room({ children, params }) {
   return (
     <LiveblocksProvider
-      authEndpoint="/api/liveblocks-auth"
+      authEndpoint={"/api/liveblocks-auth?roomId="+params?.documentid}
       
       resolveUsers={async ({ userIds }) => {
         const q = query(collection(db, "CSUsers"),where("email", "in", userIds));
@@ -37,10 +37,10 @@ export function Room({ children, params }) {
           userList = userList.filter((user) => user.name.includes(text));
         }
         // Return a list of user IDs that match the query
-        return userList.map((user) => user.id);
+        return userList.map((user) => user.email);
       }}
     >
-      <RoomProvider id={params?.documentid}>
+      <RoomProvider id={params?.documentid?params?.documentid:'1'}>
         <ClientSideSuspense fallback={<div>Loading…</div>}>
           {children}
         </ClientSideSuspense>

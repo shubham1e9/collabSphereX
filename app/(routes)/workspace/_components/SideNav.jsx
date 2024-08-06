@@ -17,8 +17,9 @@ import uuid4 from "uuid4";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Progress } from "@/components/ui/progress";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import NotificationBox from "./NotificationBox";
 
 const MAX_FILE = 5;
 
@@ -50,18 +51,18 @@ function SideNav({ params }) {
   // Create new document...............................................................
 
   const CreateNewDocument = async () => {
-
-    if(documentList?.length >= MAX_FILE) {
+    if (documentList?.length >= MAX_FILE) {
       toast("Upgrade to add new file", {
-        description: "You reach max file, Please upgrade for unlimited files creation.",
+        description:
+          "You reach max file, Please upgrade for unlimited files creation.",
         action: {
           label: "Upgrade",
           onClick: () => console.log("Undo"),
         },
-      })
+      });
       return;
     }
-    
+
     setLoading(true);
     const docId = uuid4();
     await setDoc(doc(db, "workspaceDocuments", docId.toString()), {
@@ -74,10 +75,10 @@ function SideNav({ params }) {
       documentOutput: [],
     });
 
-    await setDoc(doc(db, 'documentOutput', docId.toString()), {
+    await setDoc(doc(db, "documentOutput", docId.toString()), {
       docId: docId,
-      output: []
-    })
+      output: [],
+    });
 
     setLoading(false);
     router.replace("/workspace/" + params?.workspaceid + "/" + docId);
@@ -87,7 +88,9 @@ function SideNav({ params }) {
     <div className="fixed h-screen p-5 bg-blue-100 shadow-md md:w-72 md:block ">
       <div className="flex items-center justify-between">
         <Logo />
-        <Bell className="w-5 h-5 text-gray-800" />
+        <NotificationBox>
+          <Bell className="w-5 h-5 text-gray-800" />
+        </NotificationBox>
       </div>
       <hr className="my-5 border-gray-400" />
       <div>
@@ -98,15 +101,20 @@ function SideNav({ params }) {
           </Button>
         </div>
       </div>
-      
-       {/* Document List...................................................... */}
+
+      {/* Document List...................................................... */}
       <DocumentList documentList={documentList} params={params} />
-      
-       {/* Progress bar....................................................... */}
+
+      {/* Progress bar....................................................... */}
       <div className="absolute bottom-10 w-[85%]">
-      <Progress value={(documentList?.length/MAX_FILE)*100} />
-      <h2 className="my-5 text-sm font-light"><strong>{documentList?.length}</strong> Out of <strong>5</strong> files used</h2>
-      <h2 className="text-sm font-light">Upgrade your plane for unlimited access</h2>
+        <Progress value={(documentList?.length / MAX_FILE) * 100} />
+        <h2 className="my-5 text-sm font-light">
+          <strong>{documentList?.length}</strong> Out of <strong>5</strong>{" "}
+          files used
+        </h2>
+        <h2 className="text-sm font-light">
+          Upgrade your plane for unlimited access
+        </h2>
       </div>
     </div>
   );

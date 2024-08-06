@@ -7,6 +7,7 @@ import Alert from "editorjs-alert";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 import { useUser } from "@clerk/nextjs";
+import GenerateAITemplate from "./GenerateAITemplate";
 
 function RichDocumentEditor({ params }) {
   const ref = useRef();
@@ -30,7 +31,7 @@ function RichDocumentEditor({ params }) {
       console.log(outputData);
       const docRef = doc(db, "documentOutput", params?.documentid);
       await updateDoc(docRef, {
-        output: outputData,
+        output: JSON.stringify(outputData),
         editedBy: user?.primaryEmailAddress?.emailAddress,
       });
     });
@@ -96,6 +97,9 @@ function RichDocumentEditor({ params }) {
   return (
     <div className="lg:-ml-40">
       <div id="editorjs"></div>
+      <div className="fixed left-0 z-10 bottom-10 md:ml-80">
+        <GenerateAITemplate setGenerateAIOutput={(output)=>editor?.render(output)}/>
+      </div>
     </div>
   );
 }
