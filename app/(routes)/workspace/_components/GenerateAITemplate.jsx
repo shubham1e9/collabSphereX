@@ -21,6 +21,7 @@ function GenerateAITemplate({setGenerateAIOutput}) {
     setLoading(true);
     const PROMPT = "generate template for editor.js in for" + userInput;
     const result = await chatSession.sendMessage(PROMPT);
+    console.log("Here is the generated template ")
     console.log(result.response.text());
     try {
       const output = JSON.parse(result.response.text())
@@ -49,7 +50,7 @@ function GenerateAITemplate({setGenerateAIOutput}) {
             <DialogDescription>
               <h2 className="mt-5">What you want to write in document</h2>
               <Input placehoder="Ex. Project Idea" 
-                onChange={(event) =>setU}
+                onChange={(event) =>setUserInput(event.target.value)}
               />
               <div className="flex items-center justify-end gap-5 mt-5">
                 <Button variant="ghost" onClick={() => setOpen(false)}>
@@ -64,6 +65,9 @@ function GenerateAITemplate({setGenerateAIOutput}) {
                   ) : (
                     "Generate"
                   )}
+                </Button>
+                <Button onClick = {() => GenerateFromAI()}>
+                  Generate
                 </Button>
               </div>
             </DialogDescription>

@@ -10,6 +10,7 @@ import {
   useUnreadInboxNotificationsCount,
 } from "@liveblocks/react/suspense";
 import { InboxNotification, InboxNotificationList } from "@liveblocks/react-ui";
+import { useEffect } from "react";
 
 function NotificationBox({ children }) {
   const { inboxNotifications } = useInboxNotifications();
