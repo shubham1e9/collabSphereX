@@ -11,7 +11,7 @@ function Hero() {
         <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"></div>
       </div>
       <div>
-        <div className="relative ml-auto pt-36">
+        <div className="relative ml-auto pt-17">
           <div className="mx-auto text-center lg:w-2/3">
             <h1 className="text-5xl font-bold text-gray-900 dark:text-white md:text-6xl xl:text-7xl">
               This is where{" "}
@@ -20,12 +20,12 @@ function Hero() {
               </span>
             </h1>
             <p className="mt-8 text-gray-700 dark:text-gray-300">
-              A collaborative workspace that lets teams
-              create, share, and work together on projects seamlessly. It
-              combines flexible pages with reusable components that sync across
-              different apps, making it easy to stay organized and up-to-date.
+              A collaborative workspace that lets teams create, share, and work
+              together on projects seamlessly. It combines flexible pages with
+              reusable components that sync across different apps, making it
+              easy to stay organized and up-to-date.
             </p>
-            <div className="flex flex-wrap justify-center mt-16 gap-y-4 gap-x-6">
+            <div className="flex flex-wrap justify-center mt-10 gap-y-4 gap-x-6">
               <a
                 href="/dashboard"
                 className="relative flex items-center justify-center w-full px-6 h-11 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
@@ -43,25 +43,40 @@ function Hero() {
                 </span>
               </a>
             </div>
-            <div className="justify-between hidden py-8 mt-16 border-gray-100 border-y dark:border-gray-800 sm:flex">
-              <div className="text-left">
-                <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                  The lowest price
-                </h6>
-                <p className="mt-2 text-gray-500">Some text here</p>
-              </div>
-              <div className="text-left">
-                <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                  The fastest on the market
-                </h6>
-                <p className="mt-2 text-gray-500">Some text here</p>
-              </div>
-              <div className="text-left">
-                <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                  The most loved
-                </h6>
-                <p className="mt-2 text-gray-500">Some text here</p>
-              </div>
+            <div className="flex flex-wrap justify-around py-8 bg-gray-50 dark:bg-gray-900">
+              {[
+                {
+                  title: "The lowest price",
+                  description: "Unbeatable prices that won't break the bank!",
+                  icon: "💲",
+                },
+                {
+                  title: "The fastest on the market",
+                  description:
+                    "Experience lightning-fast performance that outpaces the competition!",
+                  icon: "⚡",
+                },
+                {
+                  title: "The most loved",
+                  description:
+                    "Join the countless satisfied customers who adore our product!",
+                  icon: "❤️",
+                },
+              ].map((feature, index) => (
+                <div
+                  key={index}
+                  className="flex-1 max-w-md p-6 mx-4 my-2 text-center transition duration-300 bg-white rounded-lg shadow-lg dark:bg-gray-800 hover:shadow-xl"
+                  style={{ minWidth: "230px" }}
+                >
+                  <div className="mb-1 text-2xl">{feature.icon}</div>
+                  <h6 className="text-lg font-semibold text-gray-800 dark:text-white">
+                    {feature.title}
+                  </h6>
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    {feature.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
